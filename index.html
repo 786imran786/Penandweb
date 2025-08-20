@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pen&Web - Web Solutions for Every Business</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables - Grey & Green Theme */
+:root {
+    --primary-green: #00A82D;   /* Evernote-like green */
+    --dark-green: #008C26;
+    --light-green: #E6F4EA;
+
+    --dark-grey: #2D2D2D;
+    --medium-grey: #5F5F5F;
+
+    --light-grey: #F2F2F2;      /* slightly softer than #F5F5F5 */
+    --off-white: #FAFAFA;       /* softer background base */
+    --white: #FAFAFA;           /* replace #FFFFFF with this */
+    
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* softer shadow */
+    --transition: all 0.3s ease;
+}
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-grey);
+            line-height: 1.6;
+            overflow-x: hidden;
+             background-color: var(--off-white);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 0px 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-grey);
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--medium-grey);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+        }
+
+
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            color: var(--medium-grey);
+             font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-green);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            margin-top: 70px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--light-grey) 0%, var(--white) 100%);
+        }
+
+        .video-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .video-container.active {
+            opacity: 1;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            background: rgba(45, 45, 45, 0.4);
+        }
+
+        .hero-text {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-text p {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--white);
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 35px;
+            background-color: var(--primary-green);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 168, 45, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 168, 45, 0.4);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-icons {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 30px;
+            border-radius: 12px;
+            transition: var(--transition);
+            background: var(--light-grey);
+            width: 180px;
+        }
+
+        .icon-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            background: var(--light-green);
+        }
+
+        .icon-item i {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+        }
+
+        .icon-item span {
+            font-weight: 500;
+            color: var(--dark-grey);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--light-grey);
+            border-radius: 20px;
+            margin: 50px auto;
+            max-width: 1200px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--dark-grey);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 16px;
+            border: 1px solid var(--light-grey);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(0, 168, 45, 0.1);
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            align-self: center;
+            min-width: 200px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-grey);
+            padding: 50px 0 30px;
+            color: var(--light-grey);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--light-grey);
+        }
+
+        .developer {
+            font-size: 0.8rem;
+            color: #9E9E9E;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            color: var(--light-grey);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: var(--primary-green);
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-text p {
+                font-size: 1.2rem;
+            }
+            
+            .about-icons {
+                gap: 30px;
+            }
+            
+            .icon-item {
+                width: 160px;
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                gap: 25px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .icon-item {
+                width: 140px;
+                padding: 20px;
+            }
+            
+            .about-icons {
+                gap: 20px;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+        .logo img{
+            height: 38px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="logo.png">
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="video-carousel">
+            <div class="video-container active">
+                <video autoplay muted loop>
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-container">
+                <video autoplay muted loop>
+                    <source src="video2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-container">
+                <video autoplay muted loop>
+                    <source src="video3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="overlay">
+                <div class="hero-text">
+                    <h1>Web solutions for every business</h1>
+                    <p>Restaurants • Grocery • Laundry • Custom Websites</p>
+                    <a href="#contact" class="cta-button">Get Started</a>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <div class="indicator active" data-index="0"></div>
+                <div class="indicator" data-index="1"></div>
+                <div class="indicator" data-index="2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <br>
+            <h2 class="fade-in">Crafting Digital Excellence</h2>
+            <div class="about-content fade-in">
+                <p>We create modern, customized websites for every business—whether it's restaurants, laundry services, grocery stores, or unique projects. With QR-based smart features, your digital presence becomes effortless and impactful.</p>
+            </div>
+            <div class="about-icons fade-in">
+                <div class="icon-item">
+                    <i class="fas fa-pencil-alt"></i>
+                    <span>Custom Design</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-qrcode"></i>
+                    <span>QR Solutions</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Mobile First</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-rocket"></i>
+                    <span>Fast Delivery</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="fade-in">Let's Work Together</h2>
+            <div class="contact-container fade-in">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" required placeholder="Tell us about your project"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="copyright">© 2025 Pen&Web. All rights reserved.</div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+            </div>
+            <div class="developer">Crafted with ♥ by [Your Name]</div>
+        </div>
+    </footer>
+<script>
+    // Sticky header with hide/show on scroll
+    const header = document.getElementById('header');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        if (lastScrollY < window.scrollY && window.scrollY > 200) {
+            header.classList.add('hidden');
+        } else {
+            header.classList.remove('hidden');
+        }
+        lastScrollY = window.scrollY;
+    });
+
+    // Video carousel functionality
+    const videoContainers = document.querySelectorAll('.video-container');
+    const indicators = document.querySelectorAll('.indicator');
+    let currentVideo = 0;
+
+    function playVideo(index) {
+        // Stop current video
+        const oldVideo = videoContainers[currentVideo].querySelector('video');
+        oldVideo.pause();
+        oldVideo.currentTime = 0;
+
+        videoContainers[currentVideo].classList.remove('active');
+        indicators[currentVideo].classList.remove('active');
+
+        // Switch to new video
+        currentVideo = index;
+
+        videoContainers[currentVideo].classList.add('active');
+        indicators[currentVideo].classList.add('active');
+
+        const newVideo = videoContainers[currentVideo].querySelector('video');
+        newVideo.currentTime = 0;
+        newVideo.play();
+    }
+
+    function changeVideo() {
+        let nextIndex = (currentVideo + 1) % videoContainers.length;
+        playVideo(nextIndex);
+    }
+
+    // Add click events to indicators
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            playVideo(index);
+        });
+    });
+
+    // Change video every 8 seconds
+    setInterval(changeVideo, 8000);
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    function checkFade() {
+        fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            if (elementTop < windowHeight - 100) {
+                element.classList.add('appear');
+            }
+        });
+    }
+    checkFade();
+    window.addEventListener('scroll', checkFade);
+</script>
+
+</body>
+</html>

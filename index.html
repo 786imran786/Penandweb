@@ -155,6 +155,13 @@
             height: 100%;
         }
 
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* full screen height */
+    overflow: hidden;
+}
+
 .video-container video {
     position: absolute;
     top: 50%;
@@ -164,8 +171,9 @@
     width: auto;
     height: auto;
     transform: translate(-50%, -50%);
-    object-fit: contain; /* Keeps it filled */
+    object-fit: cover;
 }
+
 
         .video-container.active {
             opacity: 1;
@@ -705,5 +713,6 @@
 </body>
 
 </html>
+
 
 
